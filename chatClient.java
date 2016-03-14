@@ -58,6 +58,7 @@ public class chatClient{
 		public void go(){
 			frame1.setVisible(false);
 			frame2 = new JFrame("Chat Client");
+			JPanel panel8 = new JPanel();
 			JPanel panel5 = new JPanel();
 			JPanel panel6 = new JPanel();
 			JPanel panel7 = new JPanel();
@@ -85,24 +86,21 @@ public class chatClient{
 			panel7.add(label2);
 			panel7.add(passedField);
 
+			panel8.setLayout(new BoxLayout(panel8,BoxLayout.Y_AXIS));
+			panel8.add(panel5);
+			panel8.add(panel7);			
 			frame2.setSize(300,500);
-			frame2.getContentPane().add(BorderLayout.NORTH,panel5);
-			frame2.getContentPane().add(BorderLayout.CENTER,panel7);
-			frame2.getContentPane().add(BorderLayout.SOUTH,panel6);
+			frame2.getContentPane().add(BorderLayout.NORTH,panel8);
+			frame2.getContentPane().add(BorderLayout.CENTER,panel6);
 			frame2.setVisible(true);
 		}
 	}
 
-	public static void main(String[] args){
-		chatClient client = new chatClient();
-		client.go();
-	}
-
-	public void go(){
+	public class Forth{			//聊天窗口 The chat
+		public void go(){
+		frame2.setVisible(false);
 		frame4 = new JFrame("Chat Client");
-		
 		JPanel panel1 = new JPanel();
-
 		incoming = new JTextArea(15,50);
 		incoming.setLineWrap(true);
 		incoming.setWrapStyleWord(true);
@@ -128,8 +126,16 @@ public class chatClient{
 		
 		frame4.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame4.setVisible(true);
+		}
+	}
+	public static void main(String[] args){
+		chatClient client = new chatClient();
+		client.go();
+	}
+
+	public void go(){
+		new First().go();
 		
-		//还没有把聊天窗口打开
 	}
 
 	private void setUpNetWorking(){
@@ -146,13 +152,13 @@ public class chatClient{
 
 	public class SignInListener implements ActionListener{
 		public void actionPerformed(ActionEvent ev){
-			frame2.setVisible(true);
-			frame1.setVisible(false);
+			new Second().go();
 		}
 	}
 
 	public class confirmListener implements ActionListener{
 		public void actionPerformed(ActionEvent ev){
+			new Forth().go();
 			//确认登陆
 			//密码发送服务器
 			//密码比对
