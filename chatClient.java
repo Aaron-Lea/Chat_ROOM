@@ -6,31 +6,25 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class chatClient{
-	JTextArea incoming;
-	JTextArea outgoing;
-	JTextArea Beginning;
-	JFrame frame1;	//聊天界面
-	JFrame frame2;	//登陆界面
-	JPanel panel1;
+	JTextArea incoming,outgoing,Beginning;
+	JFrame frame4,frame1,frame2;	//f1开始界面,f2.登陆界面，f4聊天界面 
+	JLabel label1,label2;	//user name，password
 	BufferedReader reader;
 	PrintWriter writer;
 	Socket sock;
 
-	public static void main(String[] args){
-		chatClient client = new chatClient();
-		client.go();
-	}
 
-	public void go(){
+	public class First{			//开始界面
+		public void go(){
 		frame1 = new JFrame("Chat Client");
-		frame2 = new JFrame("Chat Client");
-		JPanel panel1 = new JPanel();
+		frame1 = new JFrame("Chat Client");
 		JPanel panel2 = new JPanel();
 		JPanel panel3 = new JPanel();
-		JPanel panel4 = new JPanel();	
+		JPanel panel4 = new JPanel();
+
 		Font TextFont = new Font("serif",Font.BOLD,22);
 		Beginning = new JTextArea(12,1);
-		Beginning = new JTextArea("\n\n\n\n\n\nDo you have an acount ? \n\n\n");
+		Beginning = new JTextArea("\n\n\n\n\nDo you have an acount ? \n\n\n");
 		Beginning.setFont(TextFont);
 		Beginning.setLineWrap(true);
 		Beginning.setWrapStyleWord(true);
@@ -42,6 +36,72 @@ public class chatClient{
 		JButton SignUp = new JButton("Sign Up :) ");
 		SignUp.setFont(bigFont);
 		SignUp.addActionListener(new SignUpListener());
+
+		panel3.setBackground(Color.WHITE);
+		panel3.add(SignIn);
+		panel4.setBackground(Color.WHITE);
+		panel4.add(SignUp);
+		panel2.setLayout(new BoxLayout(panel2,BoxLayout.Y_AXIS));
+		panel2.setBackground(Color.WHITE);
+		panel2.add(panel3);
+		panel2.add(panel4);
+
+		frame1.getContentPane().add(BorderLayout.CENTER,Beginning);
+		frame1.getContentPane().add(BorderLayout.EAST,panel2);
+		frame1.setSize(300,500);
+		frame1.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame1.setVisible(true);
+		}
+	}
+
+	public class Second{		//登陆界面
+		public void go(){
+			frame1.setVisible(false);
+			frame2 = new JFrame("Chat Client");
+			JPanel panel5 = new JPanel();
+			JPanel panel6 = new JPanel();
+			JPanel panel7 = new JPanel();
+			JTextField nameField = new JTextField(10);
+			JTextField passedField = new JTextField(10);
+			Font labelFont = new Font("serif",Font.BOLD,15);
+			label1 = new JLabel("User name :");
+			label1.setFont(labelFont);
+			label2 = new JLabel("Password : ");
+			label2.setFont(labelFont);
+			JButton confirm = new JButton("confirm");
+			confirm.setFont(labelFont);
+			confirm.addActionListener(new confirmListener());
+			JButton exit = new JButton("Exit");
+			exit.setFont(labelFont);
+			exit.addActionListener(new exitListener());
+			
+			panel6.setLayout(new BoxLayout(panel6,BoxLayout.X_AXIS));
+			panel6.add(confirm);
+			panel6.add(exit);
+
+			panel5.add(label1);
+			panel5.add(nameField);
+
+			panel7.add(label2);
+			panel7.add(passedField);
+
+			frame2.setSize(300,500);
+			frame2.getContentPane().add(BorderLayout.NORTH,panel5);
+			frame2.getContentPane().add(BorderLayout.CENTER,panel7);
+			frame2.getContentPane().add(BorderLayout.SOUTH,panel6);
+			frame2.setVisible(true);
+		}
+	}
+
+	public static void main(String[] args){
+		chatClient client = new chatClient();
+		client.go();
+	}
+
+	public void go(){
+		frame4 = new JFrame("Chat Client");
+		
+		JPanel panel1 = new JPanel();
 
 		incoming = new JTextArea(15,50);
 		incoming.setLineWrap(true);
@@ -58,26 +118,17 @@ public class chatClient{
 		panel1.add(outgoing);
 		panel1.add(send);
 
-
-		panel3.setBackground(Color.WHITE);
-		panel3.add(SignIn);
-		panel4.setBackground(Color.WHITE);
-		panel4.add(SignUp);
-		panel2.setLayout(new BoxLayout(panel2,BoxLayout.Y_AXIS));
-		panel2.setBackground(Color.WHITE);
-		panel2.add(panel3);
-		panel2.add(panel4);
 		setUpNetWorking();
 
 		Thread readerThread = new Thread(new incomingReader());
 		readerThread.start();
 
-		frame2.getContentPane().add(BorderLayout.CENTER,Beginning);
-		frame2.getContentPane().add(BorderLayout.EAST,panel2);
-		frame1.getContentPane().add(BorderLayout.CENTER,panel1);
-		frame1.setSize(700,400);
-		frame2.setSize(300,500);
-		frame2.setVisible(true);
+		frame4.getContentPane().add(BorderLayout.CENTER,panel1);
+		frame4.setSize(700,400);
+		
+		frame4.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame4.setVisible(true);
+		
 		//还没有把聊天窗口打开
 	}
 
@@ -95,13 +146,26 @@ public class chatClient{
 
 	public class SignInListener implements ActionListener{
 		public void actionPerformed(ActionEvent ev){
-			frame1.setVisible(true);
-			//登陆按钮
-		
-
+			frame2.setVisible(true);
+			frame1.setVisible(false);
 		}
 	}
 
+	public class confirmListener implements ActionListener{
+		public void actionPerformed(ActionEvent ev){
+			//确认登陆
+			//密码发送服务器
+			//密码比对
+			//if(true)登陆、
+			//else 重新输入
+		}
+	}
+	public class exitListener implements ActionListener{
+		public void actionPerformed(ActionEvent EV){
+			frame2.setVisible(false);
+			System.out.println("Thanks for using me!");
+		}
+	}
 	public class SignUpListener implements ActionListener{
 		public void actionPerformed(ActionEvent ev){
 		
