@@ -172,7 +172,7 @@ public class chatClient{
 			InputStreamReader streamReader = new InputStreamReader(sock.getInputStream());
 			reader = new BufferedReader(streamReader);
 			writer = new PrintWriter(sock.getOutputStream());
-			System.out.println("networking established");
+			System.out.println("networking woking");
 		}catch(IOException ex){
 			ex.printStackTrace();
 		}

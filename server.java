@@ -5,11 +5,11 @@ import java.util.*;
 public class server{
 	ArrayList clientOutputStream;
 
-	public class ClientHandler implements Runnable{
+	public class Client implements Runnable{
 		BufferedReader reader;
 		Socket sock;
 
-		public ClientHandler(Socket clientSocket){
+		public Client(Socket clientSocket){
 			try{
 				sock = clientSocket;
 				InputStreamReader isReader = new InputStreamReader(sock.getInputStream());
@@ -42,13 +42,13 @@ public class server{
 			ServerSocket ServerSocket = new ServerSocket(5000);
 
 			while(true){
-				Socket clientSocket = ServerSocket.accept();
-				//clientSocket = new Socket("127.0.0.1",5000);
+				Socket clientSocket = new Socket("127.0.0.1",5000);
+				clientSocket = ServerSocket.accept();
 			
 				PrintWriter writer = new PrintWriter(clientSocket.getOutputStream());
 				clientOutputStream.add(writer);
 
-				Thread t = new Thread(new ClientHandler(clientSocket));
+				Thread t = new Thread(new Client(clientSocket));
 				t.start();
 				System.out.println("got a connection");
 			}
