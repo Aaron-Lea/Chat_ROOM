@@ -7,7 +7,7 @@ import java.awt.event.*;
 
 public class chatClient{
 	JTextArea incoming,outgoing,Beginning;
-	JFrame frame4,frame1,frame2;	//f1开始界面,f2.登陆界面，f4聊天界面 
+	JFrame frame1,frame2,frame3,frame4;	//f1开始界面,f2.登陆界面，f3.注册界面,f4聊天界面 
 	JLabel label1,label2;	//user name，password
 	BufferedReader reader;
 	PrintWriter writer;
@@ -96,9 +96,37 @@ public class chatClient{
 		}
 	}
 
+	public class Third{
+		public void go(){
+			frame1.setVisible(false);
+			Font CHARA = new Font("serif",Font.BOLD,15);
+			frame3 = new JFrame("Chat Client");
+			JPanel panel9 = new JPanel();
+			JPanel panel10 = new JPanel();
+			JLabel label3 = new JLabel("YOUR NAME IS ");
+			label3.setFont(CHARA);
+			JLabel label4 = new JLabel("YOUR Password");
+			label4.setFont(CHARA);
+			JTextField username = new JTextField(8);
+			JTextField passwd = new JTextField(8);
+			JButton Sure = new JButton("SURE AND SignIn");
+			Sure.addActionListener(new SureListener());
+			Sure.setFont(CHARA);
+			panel9.setLayout(new BoxLayout(panel9,BoxLayout.Y_AXIS));
+			panel9.add(label3);
+			panel9.add(username);
+			panel9.add(label4);
+			panel9.add(passwd);
+			panel10.add(Sure);
+			frame3.getContentPane().add(BorderLayout.NORTH,panel9);
+			frame3.getContentPane().add(BorderLayout.CENTER,panel10);
+			frame3.setSize(300,200);
+			frame3.setVisible(true);
+		}
+	}
+
 	public class Forth{			//聊天窗口 The chat
 		public void go(){
-		frame2.setVisible(false);
 		frame4 = new JFrame("Chat Client");
 		JPanel panel1 = new JPanel();
 		incoming = new JTextArea(15,50);
@@ -158,6 +186,7 @@ public class chatClient{
 
 	public class confirmListener implements ActionListener{
 		public void actionPerformed(ActionEvent ev){
+			frame2.setVisible(false);
 			new Forth().go();
 			//确认登陆
 			//密码发送服务器
@@ -172,9 +201,20 @@ public class chatClient{
 			System.out.println("Thanks for using me!");
 		}
 	}
+
+	public class SureListener implements ActionListener{
+		public void actionPerformed(ActionEvent ev){
+			frame3.setVisible(false);
+			new Forth().go();
+			//传送账号密码到服务器
+			//记录账号密码
+			//验证登陆
+		}
+	}
+
 	public class SignUpListener implements ActionListener{
 		public void actionPerformed(ActionEvent ev){
-		
+			new Third().go();
 		//注册界面
 	
 		
