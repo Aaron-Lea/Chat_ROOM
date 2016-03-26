@@ -11,6 +11,6 @@ The simple Chat-Room code including the Chat Client and the Server basing on Jav
 - Chat page supports flushing the messages all the time
 
 #####The Server
--check the account and password whether they match or not
--flush the chat client sign In signal all the time
--flush the messages all the time
+- check the account and password whether they match or not
+- flush the chat client sign In signal all the time
+- flush the messages all the time
