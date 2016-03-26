@@ -39,10 +39,10 @@ public class server{
 	public void go(){
 		clientOutputStream = new ArrayList();
 		try{
-			ServerSocket ServerSocket = new ServerSocket(5000);
+			ServerSocket ServerSocket = new ServerSocket(4242);
 
 			while(true){
-				Socket clientSocket = new Socket("127.0.0.1",5000);
+				Socket clientSocket = new Socket("127.0.0.1",4242);
 				clientSocket = ServerSocket.accept();
 			
 				PrintWriter writer = new PrintWriter(clientSocket.getOutputStream());

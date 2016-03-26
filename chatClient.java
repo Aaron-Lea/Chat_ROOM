@@ -7,14 +7,25 @@ import java.awt.event.*;
 
 public class chatClient{
 	JTextArea incoming,outgoing,Beginning;
-	JFrame frame1,frame2,frame3,frame4;	//f1开始界面,f2.登陆界面，f3.注册界面,f4聊天界面 
+	JFrame frame1,frame2,frame3,frame4;	
 	JLabel label1,label2;	//user name，password
 	BufferedReader reader;
 	PrintWriter writer;
 	Socket sock;
 
+	public class Account{
+		HashMap<String,String> account = new HashMap<String,String>();
+		String usna;
+		String pas;
 
-	public class First{			//开始界面
+		public void getname(){
+
+		}
+		public void getpasswd(){}
+}
+
+
+	public class First{		
 		public void go(){
 		frame1 = new JFrame("Chat Client");
 		frame1 = new JFrame("Chat Client");
@@ -37,6 +48,8 @@ public class chatClient{
 		SignUp.setFont(bigFont);
 		SignUp.addActionListener(new SignUpListener());
 
+		setUpNetWorking();
+
 		panel3.setBackground(Color.WHITE);
 		panel3.add(SignIn);
 		panel4.setBackground(Color.WHITE);
@@ -54,7 +67,7 @@ public class chatClient{
 		}
 	}
 
-	public class Second{		//登陆界面
+	public class Second{		
 		public void go(){
 			frame1.setVisible(false);
 			frame2 = new JFrame("Chat Client");
@@ -125,7 +138,7 @@ public class chatClient{
 		}
 	}
 
-	public class Forth{			//聊天窗口 The chat
+	public class Forth{			
 		public void go(){
 		frame4 = new JFrame("Chat Client");
 		JPanel panel1 = new JPanel();
@@ -144,8 +157,6 @@ public class chatClient{
 		panel1.add(outgoing);
 		panel1.add(send);
 
-		setUpNetWorking();
-
 		Thread readerThread = new Thread(new incomingReader());
 		readerThread.start();
 
@@ -157,6 +168,7 @@ public class chatClient{
 		}
 	}
 	public static void main(String[] args){
+		
 		chatClient client = new chatClient();
 		client.go();
 	}
@@ -168,11 +180,11 @@ public class chatClient{
 
 	private void setUpNetWorking(){
 		try{
-			sock = new Socket("127.0.0.1",5000);
+			sock = new Socket("127.0.0.1",4242);
 			InputStreamReader streamReader = new InputStreamReader(sock.getInputStream());
 			reader = new BufferedReader(streamReader);
 			writer = new PrintWriter(sock.getOutputStream());
-			System.out.println("networking woking");
+			System.out.println("network woking");
 		}catch(IOException ex){
 			ex.printStackTrace();
 		}
@@ -181,6 +193,11 @@ public class chatClient{
 	public class SignInListener implements ActionListener{
 		public void actionPerformed(ActionEvent ev){
 			new Second().go();
+			//try{
+			//	writer.println(nameField,getText());
+			//	writer.println(passedField.getText());
+			//	writer.flush();
+			//}
 		}
 	}
 
@@ -188,12 +205,8 @@ public class chatClient{
 		public void actionPerformed(ActionEvent ev){
 			frame2.setVisible(false);
 			new Forth().go();
-			//确认登陆
-			//密码发送服务器
-			//密码比对
-			//if(true)登陆、
-			//else 重新输入
-		}
+			
+		} 
 	}
 	public class exitListener implements ActionListener{
 		public void actionPerformed(ActionEvent EV){
@@ -206,16 +219,14 @@ public class chatClient{
 		public void actionPerformed(ActionEvent ev){
 			frame3.setVisible(false);
 			new Forth().go();
-			//传送账号密码到服务器
-			//记录账号密码
-			//验证登陆
+		
 		}
 	}
 
 	public class SignUpListener implements ActionListener{
 		public void actionPerformed(ActionEvent ev){
 			new Third().go();
-		//注册界面
+	
 	
 		
 		}
