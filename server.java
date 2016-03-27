@@ -24,7 +24,7 @@ public class server{
 			try{
 				while((message = reader.readLine()) != null){
 					System.out.println("reader" + message);
-					tellEveryone(message);
+					Spread(message);
 				}
 			}catch(Exception ex){
 				ex.printStackTrace();
@@ -39,10 +39,10 @@ public class server{
 	public void go(){
 		clientOutputStream = new ArrayList();
 		try{
-			ServerSocket ServerSocket = new ServerSocket(4242);
+			ServerSocket ServerSocket = new ServerSocket(5000);
 
 			while(true){
-				Socket clientSocket = new Socket("127.0.0.1",4242);
+				Socket clientSocket = new Socket("127.0.0.1",5000);
 				clientSocket = ServerSocket.accept();
 			
 				PrintWriter writer = new PrintWriter(clientSocket.getOutputStream());
@@ -57,7 +57,7 @@ public class server{
 		}
 	}
 
-	public void tellEveryone(String message){
+	public void Spread(String message){
 		Iterator it = clientOutputStream.iterator();
 		while(it.hasNext()){
 			try{

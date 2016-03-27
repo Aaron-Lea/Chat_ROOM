@@ -7,23 +7,18 @@ import java.awt.event.*;
 
 public class chatClient{
 	JTextArea incoming,outgoing,Beginning;
+	JTextField nameField,passedField;
 	JFrame frame1,frame2,frame3,frame4;	
 	JLabel label1,label2;	//user name，password
 	BufferedReader reader;
 	PrintWriter writer;
 	Socket sock;
+	Account acoun;
 
 	public class Account{
-		HashMap<String,String> account = new HashMap<String,String>();
 		String usna;
 		String pas;
-
-		public void getname(){
-
-		}
-		public void getpasswd(){}
-}
-
+	}
 
 	public class First{		
 		public void go(){
@@ -47,8 +42,6 @@ public class chatClient{
 		JButton SignUp = new JButton("Sign Up :) ");
 		SignUp.setFont(bigFont);
 		SignUp.addActionListener(new SignUpListener());
-
-		setUpNetWorking();
 
 		panel3.setBackground(Color.WHITE);
 		panel3.add(SignIn);
@@ -75,8 +68,8 @@ public class chatClient{
 			JPanel panel5 = new JPanel();
 			JPanel panel6 = new JPanel();
 			JPanel panel7 = new JPanel();
-			JTextField nameField = new JTextField(10);
-			JTextField passedField = new JTextField(10);
+			nameField = new JTextField(10);
+			passedField = new JTextField(10);
 			Font labelFont = new Font("serif",Font.BOLD,15);
 			label1 = new JLabel("User name :");
 			label1.setFont(labelFont);
@@ -106,6 +99,14 @@ public class chatClient{
 			frame2.getContentPane().add(BorderLayout.NORTH,panel8);
 			frame2.getContentPane().add(BorderLayout.CENTER,panel6);
 			frame2.setVisible(true);
+
+
+			try{
+			acoun.usna = nameField.getText();
+			System.out.println(acoun.usna);
+			}catch(Exception ex){
+			ex.printStackTrace();
+			}
 		}
 	}
 
@@ -167,20 +168,21 @@ public class chatClient{
 		frame4.setVisible(true);
 		}
 	}
+
 	public static void main(String[] args){
-		
 		chatClient client = new chatClient();
 		client.go();
 	}
 
 	public void go(){
+		setUpNetWorking();
 		new First().go();
 		
 	}
 
-	private void setUpNetWorking(){
+	public void setUpNetWorking(){
 		try{
-			sock = new Socket("127.0.0.1",4242);
+			sock = new Socket("127.0.0.1",5000);
 			InputStreamReader streamReader = new InputStreamReader(sock.getInputStream());
 			reader = new BufferedReader(streamReader);
 			writer = new PrintWriter(sock.getOutputStream());
@@ -193,13 +195,8 @@ public class chatClient{
 	public class SignInListener implements ActionListener{
 		public void actionPerformed(ActionEvent ev){
 			new Second().go();
-			//try{
-			//	writer.println(nameField,getText());
-			//	writer.println(passedField.getText());
-			//	writer.flush();
-			//}
 		}
-	}
+}
 
 	public class confirmListener implements ActionListener{
 		public void actionPerformed(ActionEvent ev){
@@ -250,7 +247,7 @@ public class chatClient{
 			String message;
 			try{
 				while((message = reader.readLine()) != null){
-					incoming.append("read" + " : " +message + "\n");
+					incoming.append(acoun.usna + " : " +message + "\n");
 				}
 			}catch(Exception ex){
 				ex.printStackTrace();
