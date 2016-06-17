@@ -1,6 +1,6 @@
 {
   "name": "Chat room",
   "tagline": "The Chat Client and the server base on java",
-  "body": "# Chat_ROOM\r\n\r\n###Introduction\r\nThe simple Chat-Room code including the Chat Client and the Server basing on Java.\r\n\r\n###Function\r\n\r\n#####The chat Client\r\n- The log In System\r\n- The sign up System\r\n- Chat page supports flushing the messages all the time\r\n\r\n#####The Server\r\n- check the account and password whether they match or not\r\n- flush the chat client sign In signal all the time\r\n- flush the messages all the time\r\n",
+  "body": "# Chat_ROOM\r\n\r\n###Introduction\r\nThe simple Chat-Room code including the Chat Client and the Server basing on Java.\r\n\r\n###Function\r\n\r\n####The chat Client\r\n- The log In System\r\n- The sign up System\r\n- Chat page supports flushing the messages all the time\r\n\r\n####The Server\r\n- check the account and password whether they match or not\r\n- flush the chat client sign In signal all the time\r\n- flush the messages all the time\r\n",
   "note": "Don't delete this file! It's used internally to help with page regeneration."
 }
